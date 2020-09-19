@@ -8,9 +8,5 @@ CREATE TABLE `Transacao` (
     `cartao_id` INT NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_Transacao_Cartao_idx` (`cartao_id` ASC),
-    CONSTRAINT `fk_Transacao_Cartao`
-    FOREIGN KEY (`cartao_id`)
-    REFERENCES `Cartao` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    CONSTRAINT `fk_Transacao_Cartao` FOREIGN KEY (`cartao_id`) REFERENCES `Cartao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE = InnoDB;
