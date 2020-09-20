@@ -21,19 +21,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         Optional<Usuario> usuario;
-
         try {
-
             usuario = usuarioService.verificarCredenciais(username);
-
             return JwtUserFactory.create(usuario.get());
-
         } catch (ConsistenciaException e) {
             throw new UsernameNotFoundException(e.getMensagem());
         }
-
     }
 
 }

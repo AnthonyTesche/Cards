@@ -1,6 +1,7 @@
 package com.cartoes.api.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,6 +58,7 @@ public class UsuarioService {
             log.info("Service: Nenhum usuário ativo com cpf: {} foi encontrado", cpf);
             throw new ConsistenciaException("Nenhum usuário ativo com cpf: {} foi encontrado", cpf);
         }
+        usuario.get().setLogged(new Date());
         usuario.get().setRegras(
                 usuario.get().getRegras().stream().filter(r -> r.getAtivo() == true).collect(Collectors.toList()));
         return usuario;

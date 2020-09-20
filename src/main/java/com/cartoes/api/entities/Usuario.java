@@ -1,6 +1,7 @@
 package com.cartoes.api.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
@@ -36,6 +39,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "ativo", nullable = false)
     private boolean ativo;
+
+    @Column(name = "logged_since", nullable = false)
+    private Date loggedSince;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "Usuario_Regra", joinColumns = { @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
@@ -89,6 +95,24 @@ public class Usuario implements Serializable {
     public void setRegras(List<Regra> regras) {
         this.regras = regras;
     }
+
+    public Date getLogged(){
+        return loggedSince;
+    }
+
+    public void setLogged(Date data){
+        this.loggedSince = data;
+    }
+
+    @PreUpdate
+	 public void preUpdate() {
+        loggedSince = new Date();
+	 }
+	 
+	 @PrePersist
+	 public void prePersist() {
+        loggedSince = new Date();
+	 }
 
     @Override
     public String toString() {
